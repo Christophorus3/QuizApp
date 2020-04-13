@@ -20,34 +20,101 @@ class QuestionViewControllerTests: XCTestCase {
     }
 
     func testViewDidLoadRendersQuestionHeaderText() {
-        let sut = makeSUT(question: "Q1", options: [])
+        let sut = makeSUT(question: "Q1")
         
         XCTAssertEqual(sut.headerLabel.text, "Q1")
     }
 
     func testViewDidLoadZeroOptionsRendersNoOptions() {
-        let sut = makeSUT(question: "Q1", options: [])
+        let sut = makeSUT(options: [])
         
         XCTAssertEqual(sut.tableView.numberOfRows(inSection: 0), 0)
     }
     
     func testViewDidLoadOneOptionRendersOneOption() {
-        let sut = makeSUT(question: "Q1", options: ["A1"])
+        let sut = makeSUT(options: ["A1"])
                 
         XCTAssertEqual(sut.tableView.numberOfRows(inSection: 0), 1)
     }
     
     func testViewDidLoadOneOptionRendersOneOptionText() {
         let sut = makeSUT(question: "Q1", options: ["A1"])
-        let indexPath = IndexPath(row: 0, section: 0)
-        let cell = sut.tableView.dataSource?.tableView(sut.tableView, cellForRowAt: indexPath)
+        let title = sut.tableView.title(at: 0)
         
-        XCTAssertEqual(cell?.textLabel?.text, "A1")
+        XCTAssertEqual(title, "A1")
     }
     
-    func makeSUT(question: String, options: [String]) -> QuestionViewController {
-        let sut = QuestionViewController(question: question, options: options)
+    func testOptionSelectedWithTwoOptionsNotifiesDelegateWithLastSelection() {
+        var receivedAnswer = [String]()
+        let sut = makeSUT(options: ["A1", "A2"]) {
+            receivedAnswer = $0
+        }
+        sut.tableView.select(row: 0)
+        XCTAssertEqual(receivedAnswer, ["A1"])
+        
+        sut.tableView.select(row: 1)
+        XCTAssertEqual(receivedAnswer, ["A2"])
+    }
+    
+    func testOptionSelectedWithTwoOptionsMultipleSelectionEnabledNotifiesDelegateWithLastSelection() {
+        var receivedAnswer = [String]()
+        let sut = makeSUT(options: ["A1", "A2"]) {
+            receivedAnswer = $0
+        }
+        sut.tableView.allowsMultipleSelection = true
+        sut.tableView.select(row: 0)
+        XCTAssertEqual(receivedAnswer, ["A1"])
+        
+        sut.tableView.select(row: 1)
+        XCTAssertEqual(receivedAnswer, ["A1", "A2"])
+    }
+    
+    func testOptionDeselectedWithTwoOptionsMultipleSelectionEnabledNotifiesDelegateWithLastSelection() {
+        var receivedAnswer = [String]()
+        let sut = makeSUT(options: ["A1", "A2"]) {
+            receivedAnswer = $0
+        }
+        sut.tableView.allowsMultipleSelection = true
+        sut.tableView.select(row: 0)
+        XCTAssertEqual(receivedAnswer, ["A1"])
+        
+        sut.tableView.select(row: 1)
+        XCTAssertEqual(receivedAnswer, ["A1", "A2"])
+        
+        sut.tableView.deselect(row: 0)
+        XCTAssertEqual(receivedAnswer, ["A2"])
+    }
+    
+    // MARK: - Helper
+    func makeSUT(question: String = "",
+                 options: [String] = [],
+                 selection: SelectionCallback? = nil) -> QuestionViewController {
+        let sut = QuestionViewController(question: question,
+                                         options: options,
+                                         selection: selection)
         _ = sut.view //loading the view
         return sut
     }
+}
+
+private extension UITableView {
+    func cell(at row: Int) -> UITableViewCell? {
+        return dataSource?.tableView(self, cellForRowAt: IndexPath(row: row, section: 0))
+    }
+    
+    func title(at row: Int) -> String? {
+        return cell(at: row)?.textLabel?.text
+    }
+    
+    func select(row: Int) {
+        selectRow(at: IndexPath(row: row, section: 0), animated: false, scrollPosition: .none)
+        delegate?.tableView?(self, didSelectRowAt: IndexPath(row: row, section: 0))
+    }
+    
+    func deselect(row: Int) {
+        deselectRow(at: IndexPath(row: row, section: 0), animated: false)
+        delegate?.tableView?(self, didSelectRowAt: IndexPath(row: row, section: 0))
+    }
+    
+    
 }
