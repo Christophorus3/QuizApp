@@ -113,7 +113,7 @@ private extension UITableView {
     
     func deselect(row: Int) {
         deselectRow(at: IndexPath(row: row, section: 0), animated: false)
-        delegate?.tableView?(self, didSelectRowAt: IndexPath(row: row, section: 0))
+        delegate?.tableView?(self, didDeselectRowAt: IndexPath(row: row, section: 0))
     }
     
     
