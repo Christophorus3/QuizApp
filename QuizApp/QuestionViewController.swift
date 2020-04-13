@@ -52,17 +52,20 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     
     // MARK: - TableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let options = tableView.indexPathsForSelectedRows!.map {
-            self.options[$0.row]
-        }
-        self.selection?(options)
+        self.selection?(selectedOptions(in: tableView))
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        let options = tableView.indexPathsForSelectedRows!.map {
+        if tableView.allowsMultipleSelection {
+            self.selection?(selectedOptions(in: tableView)) 
+        }
+    }
+    
+    private func selectedOptions(in tableView: UITableView) -> [String] {
+        guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else { return [] }
+        return selectedIndexPaths.map {
             self.options[$0.row]
         }
-        self.selection?(options)
     }
     
     private func dequeueCell(in tableView: UITableView) -> UITableViewCell {
