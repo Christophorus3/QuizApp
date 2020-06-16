@@ -25,30 +25,43 @@ class ResultsViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.headerLabel.text, "summary")
     }
     
-    func testViewDidLoadWithoutAnswersDoesNotRenderAnswerd() {
+    func testViewDidLoadWithoutAnswersDoesNotRenderAnswer() {
         let sut = makeSUT()
         
         XCTAssertEqual(sut.tableView.numberOfRows(inSection: 0), 0)
     }
     
     func testViewDidLoadWithOneAnswerRendersAnswer() {
-        let sut = makeSUT(summary: "summary", answers: [makeMockAnswer()])
+        let sut = makeSUT(summary: "summary", answers: [makeAnswer()])
         
         XCTAssertEqual(sut.tableView.numberOfRows(inSection: 0), 1)
     }
     
-    func testViewDidLoadWithCorrectAnserRendersCorrectAnswerCell() {
-        let sut = makeSUT(answers: [PresentableAnswer(isCorrect: true)])
+    func testViewDidLoadWithCorrectAnswerRendersQuestionAnswerText() {
+        let answer = makeAnswer(question: "Q1", answer: "A1", isCorrect: true)
+        let sut = makeSUT(answers: [answer])
         let cell = sut.tableView.cell(at: 0) as? CorrectAnswerCell
+        
+        XCTAssertNotNil(cell)
+        XCTAssertEqual(cell?.questionLabel.text, "Q1")
+        XCTAssertEqual(cell?.answerLabel.text, "A1")
+    }
+    
+    func testViewDidLoadWithWrongAnserRendersWrongAnswerCell() {
+        let sut = makeSUT(answers: [makeAnswer(isCorrect: false)])
+        let cell = sut.tableView.cell(at: 0) as? WrongAnswerCell
         
         XCTAssertNotNil(cell)
     }
     
-    func testViewDidLoadWithWrongAnserRendersWrongAnswerCell() {
-        let sut = makeSUT(answers: [PresentableAnswer(isCorrect: false)])
+    func testViewDidLoadWithWrongAnswerRendersQuestionAnswerText() {
+        let answer = makeAnswer(question: "Q1", answer: "A1", isCorrect: false)
+        let sut = makeSUT(answers: [answer])
         let cell = sut.tableView.cell(at: 0) as? WrongAnswerCell
         
         XCTAssertNotNil(cell)
+        XCTAssertEqual(cell?.questionLabel.text, "Q1")
+        XCTAssertEqual(cell?.correctAnswerLabel.text, "A1")
     }
 
     func makeSUT(summary: String = "", answers: [PresentableAnswer] = []) -> ResultsViewController {
@@ -57,7 +70,7 @@ class ResultsViewControllerTests: XCTestCase {
         return sut
     }
     
-    func makeMockAnswer() -> PresentableAnswer {
-        return PresentableAnswer(isCorrect: false)
+    func makeAnswer(question: String = "", answer: String = "", isCorrect: Bool = false) -> PresentableAnswer {
+        return PresentableAnswer(question: question, ansswer: answer, isCorrect: isCorrect)
     }
 }
