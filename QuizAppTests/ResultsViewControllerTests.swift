@@ -20,10 +20,44 @@ class ResultsViewControllerTests: XCTestCase {
     }
 
     func testViewDidLoadRenderSummary() {
-        let sut = ResultsViewController(summary: "summary")
-        _ = sut.view
+        let sut = makeSUT(summary: "summary")
         
         XCTAssertEqual(sut.headerLabel.text, "summary")
     }
+    
+    func testViewDidLoadWithoutAnswersDoesNotRenderAnswerd() {
+        let sut = makeSUT()
+        
+        XCTAssertEqual(sut.tableView.numberOfRows(inSection: 0), 0)
+    }
+    
+    func testViewDidLoadWithOneAnswerRendersAnswer() {
+        let sut = makeSUT(summary: "summary", answers: [makeMockAnswer()])
+        
+        XCTAssertEqual(sut.tableView.numberOfRows(inSection: 0), 1)
+    }
+    
+    func testViewDidLoadWithCorrectAnserRendersCorrectAnswerCell() {
+        let sut = makeSUT(answers: [PresentableAnswer(isCorrect: true)])
+        let cell = sut.tableView.cell(at: 0) as? CorrectAnswerCell
+        
+        XCTAssertNotNil(cell)
+    }
+    
+    func testViewDidLoadWithWrongAnserRendersWrongAnswerCell() {
+        let sut = makeSUT(answers: [PresentableAnswer(isCorrect: false)])
+        let cell = sut.tableView.cell(at: 0) as? WrongAnswerCell
+        
+        XCTAssertNotNil(cell)
+    }
 
+    func makeSUT(summary: String = "", answers: [PresentableAnswer] = []) -> ResultsViewController {
+        let sut = ResultsViewController(summary: summary, answers: answers)
+        _ = sut.view
+        return sut
+    }
+    
+    func makeMockAnswer() -> PresentableAnswer {
+        return PresentableAnswer(isCorrect: false)
+    }
 }

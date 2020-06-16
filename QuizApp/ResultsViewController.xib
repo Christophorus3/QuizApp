@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ResultsViewController" customModule="QuizApp" customModuleProvider="target">
             <connections>
                 <outlet property="headerLabel" destination="U5t-Ez-yU0" id="gDS-iQ-wmx"/>
+                <outlet property="tableView" destination="aIn-5l-k4P" id="CBU-eU-JWw"/>
                 <outlet property="view" destination="iN0-l3-epB" id="4ne-Hy-vDG"/>
             </connections>
         </placeholder>
@@ -28,9 +29,18 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aIn-5l-k4P">
+                    <rect key="frame" x="87" y="187" width="285" height="409"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="fg2-rm-HIU"/>
+                    </connections>
+                </tableView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="105.79710144927537" y="35.491071428571423"/>
         </view>
     </objects>
 </document>
