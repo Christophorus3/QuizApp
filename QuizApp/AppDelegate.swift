@@ -16,13 +16,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         let window = UIWindow(frame: UIScreen.main.bounds)
-        let viewController = QuestionViewController(question: "A question", options: ["Option 1", "Option 2"]) {
+        let questionViewController = QuestionViewController(question: "A question", options: ["Option 1", "Option 2"]) {
             print($0)
         }
+        
+        let resultsViewController = ResultsViewController(summary: "Yout got 1/2", answers: [
+            PresentableAnswer(question: "Question?? Question?? Question?? Question?? Question?? Question?? Question?? Question??", answer: "Yeah! Yeah! Yeah! Yeah! Yeah! Yeah! Yeah! Yeah! Yeah! Yeah!", wrongAnswer: nil),
+            PresentableAnswer(question: "Another Question??", answer: "Hell yeah", wrongAnswer: "Hell no!")])
         // load view
-        _ = viewController.view
-        viewController.tableView.allowsMultipleSelection = false
-        window.rootViewController = viewController
+        _ = questionViewController.view
+        _ = resultsViewController.view
+        
+        questionViewController.tableView.allowsMultipleSelection = false
+        //window.rootViewController = questionViewController
+        window.rootViewController = resultsViewController
         window.makeKeyAndVisible()
         
         self.window = window
