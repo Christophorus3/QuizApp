@@ -17,7 +17,7 @@ class iOSViewControllerFactory: ViewControllerFactory {
         self.options = options
     }
     
-    func questionViewController(for question: Question<String>, answerCallback: @escaping ([String]) -> Void) -> UIViewController {
+    func questionViewController(for question: Question<String>, answerCallback: @escaping (String) -> Void) -> UIViewController {
         switch question {
         case .singleAnswer(let value):
             return QuestionViewController(question: value, options: options[question]!, selection: { _ in })
