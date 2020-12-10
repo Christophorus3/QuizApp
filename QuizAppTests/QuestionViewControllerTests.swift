@@ -109,7 +109,10 @@ class QuestionViewControllerTests: XCTestCase {
     // MARK: - Helper
     func makeSUT(question: String = "",
                  options: [String] = [],
-                 selection: SelectionCallback? = nil) -> QuestionViewController {
+                 selection: @escaping SelectionCallback = { _ in }) -> QuestionViewController {
+        //let vcQuestion = Question.singleAnswer(question)
+        //let factory = iOSViewControllerFactory(options: [vcQuestion: options])
+        //let sut = factory.questionViewController(for: vcQuestion, answerCallback: selection) as! QuestionViewController
         let sut = QuestionViewController(question: question,
                                          options: options,
                                          selection: selection)
