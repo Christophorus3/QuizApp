@@ -18,15 +18,26 @@ class iOSViewControllerFactory: ViewControllerFactory {
     }
     
     func questionViewController(for question: Question<String>, answerCallback: @escaping ([String]) -> Void) -> UIViewController {
-        switch question {
-        case .singleAnswer(let value):
-            return QuestionViewController(question: value, options: options[question]!, selection: answerCallback)
-        default:
-            return UIViewController()
+        guard let options = self.options[question] else {
+            fatalError("Couldnt find options for question \(question)")
         }
+        return questionVC(for: question, options: options, answerCallback: answerCallback)
     }
     
     func resultsViewController(for result: Result<Question<String>, [String]>) -> UIViewController {
         return UIViewController()
+    }
+    
+    private func questionVC(for question: Question<String>, options: [String], answerCallback: @escaping ([String]) -> Void) -> UIViewController {
+        
+        switch question {
+        case .singleAnswer(let value):
+            return QuestionViewController(question: value, options: options, selection: answerCallback)
+        case .multipleAnswer(let value):
+            let vc = QuestionViewController(question: value, options: options, selection: answerCallback)
+            let _ = vc.view
+            vc.tableView.allowsMultipleSelection = true
+            return vc
+        }
     }
 }
