@@ -6,8 +6,8 @@
 //  Copyright © 2020 Christoph Wottawa. All rights reserved.
 //
 
-import UIKit
 import XCTest
+import UIKit
 import QuizEngine
 @testable import QuizApp
 
