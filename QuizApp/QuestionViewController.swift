@@ -18,16 +18,19 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     
     private(set) var question = ""
     private(set) var options = [String]()
+    private(set) var allowsMultipleSelection = false
     private var selection: SelectionCallback?
     
     private let reuseIdentifier = "Cell"
 
     convenience init(question: String,
                      options: [String],
+                     allowsMultipleSelection: Bool,
                      selection: SelectionCallback?) {
         self.init()
         self.question = question
         self.options = options
+        self.allowsMultipleSelection = allowsMultipleSelection
         self.selection = selection
     }
     
@@ -35,6 +38,7 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
         super.viewDidLoad()
         
         headerLabel.text = question
+        tableView.allowsMultipleSelection = allowsMultipleSelection
         tableView.dataSource = self
         tableView.delegate = self
     }

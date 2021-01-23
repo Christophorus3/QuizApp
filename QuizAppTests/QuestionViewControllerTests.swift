@@ -44,6 +44,11 @@ class QuestionViewControllerTests: XCTestCase {
         XCTAssertEqual(title, "A1")
     }
     
+    func testOptionSelectedWithSingleSelectionConfiguresTableView() {
+        let sut = makeSUT(options: ["A1", "A2"], allowsMultipleSelection: true)
+        XCTAssertTrue(sut.tableView.allowsMultipleSelection)
+    }
+    
     func testOptionSelectedWithSingleSelectionNotifiesDelegate() {
         var receivedAnswer = [String]()
         let sut = makeSUT(options: ["A1", "A2"]) {
@@ -82,10 +87,9 @@ class QuestionViewControllerTests: XCTestCase {
     
     func testOptionSelectedWithTwoOptionsMultipleSelectionEnabledNotifiesDelegateWithLastSelection() {
         var receivedAnswer = [String]()
-        let sut = makeSUT(options: ["A1", "A2"]) {
+        let sut = makeSUT(options: ["A1", "A2"], allowsMultipleSelection: true) {
             receivedAnswer = $0
         }
-        sut.tableView.allowsMultipleSelection = true
         sut.tableView.select(row: 0)
         XCTAssertEqual(receivedAnswer, ["A1"])
         
@@ -95,10 +99,9 @@ class QuestionViewControllerTests: XCTestCase {
     
     func testOptionDeselectedWithTwoOptionsMultipleSelectionEnabledNotifiesDelegateWithLastSelection() {
         var receivedAnswer = [String]()
-        let sut = makeSUT(options: ["A1", "A2"]) {
+        let sut = makeSUT(options: ["A1", "A2"], allowsMultipleSelection: true) {
             receivedAnswer = $0
         }
-        sut.tableView.allowsMultipleSelection = true
         sut.tableView.select(row: 0)
         XCTAssertEqual(receivedAnswer, ["A1"])
         
@@ -109,12 +112,14 @@ class QuestionViewControllerTests: XCTestCase {
     // MARK: - Helper
     func makeSUT(question: String = "",
                  options: [String] = [],
+                 allowsMultipleSelection: Bool = false,
                  selection: @escaping SelectionCallback = { _ in }) -> QuestionViewController {
         //let vcQuestion = Question.singleAnswer(question)
         //let factory = iOSViewControllerFactory(options: [vcQuestion: options])
         //let sut = factory.questionViewController(for: vcQuestion, answerCallback: selection) as! QuestionViewController
         let sut = QuestionViewController(question: question,
                                          options: options,
+                                         allowsMultipleSelection: allowsMultipleSelection,
                                          selection: selection)
         _ = sut.view //loading the view
         return sut
