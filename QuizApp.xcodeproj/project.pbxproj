@@ -27,7 +27,6 @@
 		9E85E5CE25691EC200368278 /* NavigationControllerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E85E5CD25691EC200368278 /* NavigationControllerRouter.swift */; };
 		9E85E5D0256922B900368278 /* NavigationControllerRouterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E85E5CF256922B900368278 /* NavigationControllerRouterTest.swift */; };
 		9E85E5D2256DC49F00368278 /* QuestionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E85E5D1256DC49F00368278 /* QuestionTests.swift */; };
-		9E85E5D4256EE8BA00368278 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E85E5D3256EE8BA00368278 /* Question.swift */; };
 		9E85E5D6257B988500368278 /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E85E5D5257B988400368278 /* ViewControllerFactory.swift */; };
 		9E85E5D8257B993E00368278 /* iOSViewControllerFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E85E5D7257B993E00368278 /* iOSViewControllerFactoryTests.swift */; };
 		9E85E5DA257B9AFC00368278 /* iOSViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E85E5D9257B9AFC00368278 /* iOSViewControllerFactory.swift */; };
@@ -83,7 +82,6 @@
 		9E85E5CD25691EC200368278 /* NavigationControllerRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerRouter.swift; sourceTree = "<group>"; };
 		9E85E5CF256922B900368278 /* NavigationControllerRouterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationControllerRouterTest.swift; sourceTree = "<group>"; };
 		9E85E5D1256DC49F00368278 /* QuestionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionTests.swift; sourceTree = "<group>"; };
-		9E85E5D3256EE8BA00368278 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		9E85E5D5257B988400368278 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
 		9E85E5D7257B993E00368278 /* iOSViewControllerFactoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSViewControllerFactoryTests.swift; sourceTree = "<group>"; };
 		9E85E5D9257B9AFC00368278 /* iOSViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSViewControllerFactory.swift; sourceTree = "<group>"; };
@@ -163,7 +161,6 @@
 				9E60F0502499669700BF6407 /* CorrectAnswerCell.swift */,
 				9E60F052249966AB00BF6407 /* WrongAnswerCell.swift */,
 				9E85E5CD25691EC200368278 /* NavigationControllerRouter.swift */,
-				9E85E5D3256EE8BA00368278 /* Question.swift */,
 				9E85E5D5257B988400368278 /* ViewControllerFactory.swift */,
 				9E85E5D9257B9AFC00368278 /* iOSViewControllerFactory.swift */,
 				9E5C7A8025A4FD95002EDF70 /* ResultsPresenter.swift */,
@@ -301,7 +298,6 @@
 				9E5C7A8125A4FD95002EDF70 /* ResultsPresenter.swift in Sources */,
 				9E85E5DA257B9AFC00368278 /* iOSViewControllerFactory.swift in Sources */,
 				9EF6161D242C020300CEB7A2 /* AppDelegate.swift in Sources */,
-				9E85E5D4256EE8BA00368278 /* Question.swift in Sources */,
 				9E60F053249966AB00BF6407 /* WrongAnswerCell.swift in Sources */,
 				9E60F043248ED11300BF6407 /* ResultsViewController.swift in Sources */,
 				9E5C7A8525B2FCD9002EDF70 /* QuestionPresenter.swift in Sources */,
