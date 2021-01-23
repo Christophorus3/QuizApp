@@ -13,11 +13,15 @@ class iOSViewControllerFactory: ViewControllerFactory {
     
     private let questions: [Question<String>]
     private let options: [Question<String>: [String]]
+    private let correctAnswers: [Question<String>: [String]]
+
     
     init(questions: [Question<String>],
-         options: [Question<String>: [String]]) {
+         options: [Question<String>: [String]],
+         correctAnswers: [Question<String>: [String]]) {
         self.questions = questions
         self.options = options
+        self.correctAnswers = correctAnswers
     }
     
     func questionViewController(for question: Question<String>, answerCallback: @escaping ([String]) -> Void) -> UIViewController {
@@ -25,10 +29,6 @@ class iOSViewControllerFactory: ViewControllerFactory {
             fatalError("Couldnt find options for question \(question)")
         }
         return questionVC(for: question, options: options, answerCallback: answerCallback)
-    }
-    
-    func resultsViewController(for result: Result<Question<String>, [String]>) -> UIViewController {
-        return UIViewController()
     }
     
     private func questionVC(for question: Question<String>, options: [String], answerCallback: @escaping ([String]) -> Void) -> UIViewController {
@@ -47,5 +47,10 @@ class iOSViewControllerFactory: ViewControllerFactory {
         let vc = QuestionViewController(question: value, options: options, allowsMultipleSelection: allowsMultipleSelection, selection: answerCallback)
         vc.title = presenter.title
         return vc
+    }
+    
+    func resultsViewController(for result: Result<Question<String>, [String]>) -> UIViewController {
+        let presenter = ResultsPresenter(result: result, questions: questions, correctAnswers: correctAnswers)
+        return ResultsViewController(summary: presenter.summary, answers: presenter.presentableAnswers)
     }
 }

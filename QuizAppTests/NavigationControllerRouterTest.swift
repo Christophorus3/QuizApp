@@ -43,6 +43,15 @@ class NavigationControllerRouterTest: XCTestCase {
         XCTAssertTrue(callbackFired)
     }
     
+    func testRouteToSingleAnswerQuestionConfiguresVCWithoutSubmitButton() {
+        let viewController = UIViewController()
+        let question = Question.singleAnswer("Q1")
+        factory.stub(question:question, with:viewController)
+        sut.routeTo(question:question, answerCallback: { _ in })
+
+        XCTAssertNil(viewController.navigationItem.rightBarButtonItem)
+    }
+    
     func testRouteToMultipleAnswerQuestionDoesNotProgressToNextQuestion() {
         var callbackFired = false
         let question = Question.multipleAnswer("Q1")
@@ -110,6 +119,8 @@ class NavigationControllerRouterTest: XCTestCase {
 
     }
 }
+
+// MARK: - Helpers
 
 class NonAnimatedNavigationController: UINavigationController {
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
