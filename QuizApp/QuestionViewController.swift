@@ -56,7 +56,8 @@ class QuestionViewController: UIViewController, UITableViewDataSource, UITableVi
     
     // MARK: - TableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.selection?(selectedOptions(in: tableView))
+        let options = selectedOptions(in: tableView)
+        self.selection?(options)
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
