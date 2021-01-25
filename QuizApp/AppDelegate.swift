@@ -17,12 +17,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let q1 = Question.singleAnswer("What's Mike's nationality?")
-        let questions = [q1]
         let o1 = "Canadian"
         let o2 = "American"
         let o3 = "Greek"
-        let options = [q1: [o1, o2, o3]]
-        let correctAnswers = [q1: [o3]]
+        
+        let q2 = Question.multipleAnswer("What are Caio's nationalities?")
+        let o4 = "Portuguese"
+        let o5 = "American"
+        let o6 = "Brazilian"
+        
+        let questions = [q1, q2]
+        let options = [q1: [o1, o2, o3],
+                       q2: [o4, o5, o6]]
+        
+        let correctAnswers = [q1: [o3], q2: [o4, o6]]
         
         let factory = iOSViewControllerFactory(questions: questions, options: options, correctAnswers: correctAnswers)
         
