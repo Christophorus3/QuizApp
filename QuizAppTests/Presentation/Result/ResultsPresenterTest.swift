@@ -18,9 +18,7 @@ class ResultsPresenterTest: XCTestCase {
     let q4 = Question.multipleAnswer("Q4")
     
     func test_title_returnsFormattedTitle() {
-        let answers = [q1: ["A1"], q2: ["A2", "A3"], q3: ["A4"]]
-        let result = Result(answers: answers, score: 2)
-        let sut = ResultsPresenter(result: result, questions: [q1, q2], correctAnswers: [:])
+        let sut = ResultsPresenter(result: .make(), questions: [q1, q2], correctAnswers: [:])
         
         XCTAssertEqual(sut.title, "Result")
     }
