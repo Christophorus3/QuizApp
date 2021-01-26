@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import QuizEngine
+@testable import QuizEngine
 
 extension Result {
     static func make(answers: [Question: Answer] = [:], score: Int = 0) -> Result<Question, Answer> {
@@ -21,7 +21,7 @@ extension Result: Equatable where Answer: Equatable {
     }
 }
 
-extension Result: Hashable {
+extension Result: Hashable where Answer: Equatable {
     public var hashValue: Int {
         return 1
     }

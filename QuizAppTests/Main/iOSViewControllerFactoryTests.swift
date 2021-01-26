@@ -84,7 +84,7 @@ class iOSViewControllerFactoryTests: XCTestCase {
     func makeResults() -> (ResultsViewController, ResultsPresenter) {
         let userAnswers = [q1: ["A1"], q2: ["A2", "A3"]]
         let correctAnswers = [q1: ["A1"], q2: ["A2", "A3"]]
-        let result = Result(answers: userAnswers, score: 2)
+        let result = Result.make(answers: userAnswers, score: 2)
         
         let presenter = ResultsPresenter(result: result, questions: questions, correctAnswers: correctAnswers)
         let sut = makeSUT(correctAnswers: correctAnswers)
